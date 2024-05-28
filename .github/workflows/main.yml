@@ -9,11 +9,12 @@ jobs:
     timeout-minutes: 9999
     steps:
     - name: Download
-      run: Invoke-WebRequest https://github.com/rustdesk/rustdesk/releases/download/1.2.3-2/rustdesk-1.2.3-2-x86-sciter.exe -OutFile rustdesk.exe
+      run: Invoke-WebRequest https://github.com/rustdesk/rustdesk/releases/download/1.2.3-2/rustdesk-1.2.3-2-x86_64.exe -OutFile rustdesk.exe
+    - run: .\rustdesk.exe --silent-install 1
     - name: Get RustDesk ID and Password
       run: |
         # Start RustDesk in server mode and set a static password
-        Start-Process -FilePath .\rustdesk.exe -ArgumentList "-s -p mypassword"
+        Start-Process -FilePath "C:\Program Files\RustDesk\rustdesk.exe" -ArgumentList "-s -p mypassword"
         
         # Wait for RustDesk to start and generate an ID
         Start-Sleep -Seconds 10
@@ -27,7 +28,7 @@ jobs:
     - name: Download
       run: Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
     - name: Extract
-     run: Expand-Archive ngrok.zip
+      run: Expand-Archive ngrok.zip
     - name: Auth
       run: .\ngrok\ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
       env:
