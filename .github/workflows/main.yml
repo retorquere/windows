@@ -8,21 +8,21 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 9999
     steps:
-    - run: choco install rustdesk
-    - name: Get RustDesk ID and Password
-      run: |
-        # Start RustDesk in server mode and set a static password
-        Start-Process -FilePath "C:\Program Files\RustDesk\rustdesk.exe" -ArgumentList "-s -p mypassword"
-        
-        # Wait for RustDesk to start and generate an ID
-        Start-Sleep -Seconds 10
-        
-        # Get the RustDesk ID from the registry
-        $rustdeskID = Get-ItemPropertyValue -Path "HKCU:\Software\RustDesk" -Name "myid"
-        echo "RustDesk ID: $rustdeskID"
-        
-        # Print the static password
-        echo "RustDesk Password: mypassword"
+    # - run: choco install rustdesk
+    # - name: Get RustDesk ID and Password
+    #   run: |
+    #     # Start RustDesk in server mode and set a static password
+    #     Start-Process -FilePath "C:\Program Files\RustDesk\rustdesk.exe" -ArgumentList "-s -p mypassword"
+    #     
+    #     # Wait for RustDesk to start and generate an ID
+    #     Start-Sleep -Seconds 10
+    #     
+    #     # Get the RustDesk ID from the registry
+    #     $rustdeskID = Get-ItemPropertyValue -Path "HKCU:\Software\RustDesk" -Name "myid"
+    #     echo "RustDesk ID: $rustdeskID"
+    #     
+    #     # Print the static password
+    #     echo "RustDesk Password: mypassword"
     - name: Download
       run: Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
     - name: Extract
